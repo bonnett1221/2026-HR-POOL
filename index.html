@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026 MLB Home Run Pool</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="shell">
+    <header class="hero card">
+      <div>
+        <p class="eyebrow">Commissioner + public viewer mode</p>
+        <h1 id="heroTitle">2026 MLB Home Run Pool</h1>
+        <p class="subtext">Official standings count the top 9 of 10 hitters. Viewers can follow along without a login and click each team to see all 10 hitters.</p>
+      </div>
+      <div class="hero-actions">
+        <label>
+          Season
+          <input id="seasonInput" type="number" min="2010" max="2100" />
+        </label>
+        <button id="refreshBtn">Refresh live stats</button>
+      </div>
+    </header>
+
+    <section class="card notice-bar">
+      <div>
+        <strong id="modeLabel">Viewer mode</strong>
+        <p id="modeSubtext" class="muted">This page is view-only.</p>
+      </div>
+      <div id="linkBox" class="link-box hidden">
+        <div>
+          <label>Public link</label>
+          <input id="publicLinkInput" readonly />
+        </div>
+        <div>
+          <label>Commissioner link</label>
+          <input id="commissionerLinkInput" readonly />
+        </div>
+      </div>
+    </section>
+
+    <section class="grid top-grid">
+      <div class="card">
+        <div class="section-title-row">
+          <h2>Official leaderboard (top 9 of 10)</h2>
+          <span id="lastUpdated" class="muted">Not updated yet</span>
+        </div>
+        <div class="table-wrap">
+          <table id="leaderboardTable">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Team / Person</th>
+                <th>Counting HR</th>
+                <th>Dropped HR</th>
+                <th>Points</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title-row">
+          <h2>Full leaderboard (all 10 of 10)</h2>
+          <span class="muted">For comparison</span>
+        </div>
+        <div class="table-wrap">
+          <table id="fullLeaderboardTable">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Team / Person</th>
+                <th>Total HR</th>
+                <th>Players</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid bottom-grid">
+      <div class="card" id="commissionerCard">
+        <div class="section-title-row">
+          <h2>Commissioner controls</h2>
+          <button id="addEntryBtn" class="secondary-btn">Add team</button>
+        </div>
+        <div class="settings-grid settings-top">
+          <label>
+            Pool name
+            <input id="poolNameInput" type="text" />
+          </label>
+          <label>
+            Points per HR
+            <input id="pointsPerHrInput" type="number" min="1" step="1" />
+          </label>
+        </div>
+        <p class="muted small">Each team gets 10 hitters. Official standings count the best 9 totals and drop the lowest hitter automatically.</p>
+        <div class="button-row">
+          <button id="saveLeagueBtn">Save league</button>
+        </div>
+        <div id="entriesContainer" class="entries"></div>
+      </div>
+
+      <div class="card">
+        <div class="section-title-row">
+          <h2>Selected team details</h2>
+          <span class="muted">Click a team name above</span>
+        </div>
+        <div id="teamDetail" class="team-detail empty-state">Choose a team from either leaderboard to see all 10 hitters, the dropped hitter, and the totals.</div>
+      </div>
+    </section>
+  </div>
+
+  <template id="entryTemplate">
+    <div class="entry-box">
+      <div class="entry-header">
+        <label>
+          Team / Person name
+          <input class="entry-name" type="text" placeholder="Luke" />
+        </label>
+        <button class="danger remove-entry-btn">Remove</button>
+      </div>
+      <div class="players-list"></div>
+      <div class="player-search-row">
+        <input class="player-search-input" type="text" placeholder="Search MLB player name" />
+        <button class="player-search-btn secondary-btn">Search</button>
+      </div>
+      <div class="search-results"></div>
+    </div>
+  </template>
+
+  <template id="playerChipTemplate">
+    <div class="player-chip">
+      <div>
+        <strong class="player-name"></strong>
+        <span class="player-meta"></span>
+      </div>
+      <button class="danger remove-player-btn">×</button>
+    </div>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
